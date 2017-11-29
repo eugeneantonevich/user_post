@@ -7,7 +7,7 @@ function trasformToContributorUsageView(data): any {
         if (_.isNil(result[value.id_post])) {
             result[value.id_post] = { id: value.id_post, title: data.posts[value.id_post], contributors: [] };
         }
-        result[value.id_post].contributors.push({ user: data.users[value.id_user], role: data.roles[value.id_role] });
+        result[value.id_post].contributors.push({ id: value.id_user, user: data.users[value.id_user], role: data.roles[value.id_role] });
     }, {}));
 }
 
