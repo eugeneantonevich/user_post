@@ -3,21 +3,7 @@ import { SqlConnectionData } from "./index";
 import { Sequelize } from "sequelize"
 
 export class SqlOrmConnector {
-/*
- id_user int not null, '
-                + ' id_post int not null, '
-                + ' id_role int not null, '
-                + ' PRIMARY KEY (id_user, id_post, id_role),'
 
-                + ' FOREIGN KEY (id_user)'
-                + ' REFERENCES user(id),'
-                    
-                + ' FOREIGN KEY (id_post)'
-                + ' REFERENCES post(id),'
-                    
-                + ' FOREIGN KEY (id_role)'
-                + ' REFERENCES role(id)'
-*/
     static initialize(sequelize) {
         const User = sequelize.define('user', {            
             id: {
