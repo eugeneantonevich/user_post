@@ -10,5 +10,6 @@ export class Defaults {
 
 export class Command {
     static init: string = 'init';
-    static select: string = 'select';    
+    static select: string = 'select';
+    static selectOrm: string = 'select_orm';    
 }

@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import * as mysql from 'mysql';
+import * as mysql from 'mysql2';
 import { SqlConnectionData } from "./index";
 
 export class SqlConnector {

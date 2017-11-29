@@ -7,7 +7,10 @@ import { log } from "util";
 
 function printUsage() {
     console.log('usage: \n'
-    + ' -c <command> init / select , mandatory \n'
+    + ' -c <command> ' 
+    + definitions.Command.init + ' / '
+    + definitions.Command.select + ' / '
+    + definitions.Command.selectOrm + ' , mandatory \n'
     + ' -d <database> database name, default = ' + definitions.Defaults.database + ' \n'
     + ' -u <user> sql connection user name, default = ' + definitions.Defaults.user + ' \n'
     + ' -p <password> sql connection user name, default = ' + definitions.Defaults.password + ' \n'
@@ -39,7 +42,7 @@ switch(command) {
             })
             .catch(err => {
                 executionPromise.reject(err);
-            })
+            });
     }
     break;
     case definitions.Command.select: {
@@ -50,7 +53,18 @@ switch(command) {
             })
             .catch(err => {
                 executionPromise.reject(err);
+            });
+    }
+    break;
+    case definitions.Command.selectOrm: {
+        console.log('try to select orm');
+        actions.selectOrm(connectionData)
+            .then((result) => {
+                executionPromise.resolve(result);
             })
+            .catch(err => {
+                executionPromise.reject(err);
+            });
     }
     break;
     default: {

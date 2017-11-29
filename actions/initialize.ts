@@ -23,21 +23,26 @@ function initialize(connectionData: SqlConnectionData): Promise<string> {
                 return SqlConnector.query(connection, 'use ' + connectionData.database);
             })
             .then(() => {
+                
                 console.log('crate table user');
-                return SqlConnector.query(connection, 'create table user (id int auto_increment primary key, name VARCHAR(255))');
+                return SqlConnector.query(connection, 'create table user '
+                + '( id int auto_increment primary key, name VARCHAR(255), createdAt date, updatedAt date)');
             })
             .then(() => {
                 console.log('crate table post');
-                return SqlConnector.query(connection, 'create table post (id INT auto_increment primary key, title VARCHAR(255))');
+                return SqlConnector.query(connection, 
+                    'create table post (id INT auto_increment primary key, title VARCHAR(255), createdAt date, updatedAt date)');
             })
             .then(() => {
                 console.log('crate table role');
-                return SqlConnector.query(connection, 'create table role (id INT auto_increment primary key, name VARCHAR(255))');
+                return SqlConnector.query(connection, 
+                    'create table role (id INT auto_increment primary key, name VARCHAR(255), createdAt date, updatedAt date)');
             })
             .then(() => {
                 console.log('crate table user_post');
                 return SqlConnector.query(connection, ' create table user_post '
                 + '('
+                + ' id int, '
                 + ' id_user int not null, '
                 + ' id_post int not null, '
                 + ' id_role int not null, '
@@ -50,7 +55,8 @@ function initialize(connectionData: SqlConnectionData): Promise<string> {
                 + ' REFERENCES post(id),'
                     
                 + ' FOREIGN KEY (id_role)'
-                + ' REFERENCES role(id)'
+                + ' REFERENCES role(id),'
+                + ' createdAt date, updatedAt date'
                 + ')');
             })
             .then(() => {
