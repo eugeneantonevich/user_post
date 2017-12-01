@@ -22,8 +22,7 @@ function initialize(connectionData: SqlConnectionData): Promise<string> {
                 console.log('user database ' + connectionData.database);
                 return SqlConnector.query(connection, 'use ' + connectionData.database);
             })
-            .then(() => {
-                
+            .then(() => {                
                 console.log('crate table user');
                 return SqlConnector.query(connection, 'create table user '
                 + '( id int auto_increment primary key, name VARCHAR(255), createdAt date, updatedAt date)');
@@ -42,20 +41,17 @@ function initialize(connectionData: SqlConnectionData): Promise<string> {
                 console.log('crate table user_post');
                 return SqlConnector.query(connection, ' create table user_post '
                 + '('
-                + ' id int, '
                 + ' id_user int not null, '
                 + ' id_post int not null, '
-                + ' id_role int not null, '
-                + ' PRIMARY KEY (id_user, id_post, id_role),'
+                + ' role varchar(100) not null, '
+                + ' PRIMARY KEY (id_user, id_post),'
 
                 + ' FOREIGN KEY (id_user)'
                 + ' REFERENCES user(id),'
                     
                 + ' FOREIGN KEY (id_post)'
                 + ' REFERENCES post(id),'
-                    
-                + ' FOREIGN KEY (id_role)'
-                + ' REFERENCES role(id),'
+
                 + ' createdAt date, updatedAt date'
                 + ')');
             })

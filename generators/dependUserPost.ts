@@ -1,6 +1,7 @@
 import { SqlConnector } from "../sql/index";
 import * as random from "random-number";
 import { loadavg } from "os";
+import * as crypto from "crypto";
 
 function generateSingleDepend(connection) {
     let options = {
@@ -8,16 +9,12 @@ function generateSingleDepend(connection) {
         max:  100,
         integer: true
     };
-    let optionsRole = {
-        min:  1,
-        max:  3,
-        integer: true
-    };
-    
-    let query: string =  'insert into user_post (id_user, id_post, id_role) values ('
+    let role: string = crypto.randomBytes(3).toString('hex');
+    let query: string =  'insert into user_post (id_user, id_post, role) values ('
      + random(options) + ', ' 
      + random(options) + ', ' 
-     + random(optionsRole) + ')';
+     + '\'' + role + '\')';
+     
     return SqlConnector.queryIgnoreResponse(connection, query);
 }
 

@@ -1,6 +1,6 @@
 import * as _ from "lodash";
 import { SqlConnectionData } from "./index";
-import { Sequelize } from "sequelize"
+import { Sequelize } from "sequelize";
 
 export class SqlOrmConnector {
 
@@ -13,7 +13,7 @@ export class SqlOrmConnector {
             },
             name: {
                 type: Sequelize.STRING,              
-            }
+            }        
         },
         {
             freezeTableName: true
@@ -46,14 +46,20 @@ export class SqlOrmConnector {
         {
             freezeTableName: true
         });
-        
-        const UserPost = sequelize.define('user_post', {}, { freezeTableName: true });
-        
-        UserPost.belongsTo(User, {foreignKey: 'id_user', targetKey: 'id'});
-        UserPost.belongsTo(Post, {foreignKey: 'id_post', targetKey: 'id'});
-        UserPost.belongsTo(Role, {foreignKey: 'id_role', targetKey: 'id'});
+  
+        const UserPost = sequelize.define('user_post', { 
+            role: {
+                type: Sequelize.STRING
+            }
+        },
+        {
+            freezeTableName: true
+        });
 
-        return { User, Role, UserPost, Post };        
+        User.belongsToMany(Post, { through: UserPost, foreignKey: 'id_user' })
+        Post.belongsToMany(User, { through: UserPost, foreignKey: 'id_post' })
+
+        return { User, Role, Post };
     }
     
 
